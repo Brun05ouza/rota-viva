@@ -1,0 +1,56 @@
+[
+  {
+    "id": "first_visit",
+    "title": "Primeira visita",
+    "description": "Faça o check-in no seu primeiro ponto turístico.",
+    "icon": "location_on",
+    "condition": "visitedPointIds.length >= 1",
+    "isUnlocked": false,
+    "unlockedAt": null
+  },
+  {
+    "id": "explorer_beginner",
+    "title": "Explorador iniciante",
+    "description": "Visite cinco pontos diferentes.",
+    "icon": "explore",
+    "condition": "visitedPointIds.length >= 5",
+    "isUnlocked": false,
+    "unlockedAt": null
+  },
+  {
+    "id": "route_complete",
+    "title": "Rota completa",
+    "description": "Conclua sua primeira rota turística.",
+    "icon": "verified",
+    "condition": "completedRouteIds.length >= 1",
+    "isUnlocked": false,
+    "unlockedAt": null
+  },
+  {
+    "id": "master_city",
+    "title": "Mestre da cidade",
+    "description": "Complete múltiplas rotas e explore vários bairros.",
+    "icon": "military_tech",
+    "condition": "completedRouteIds.length >= 3",
+    "isUnlocked": false,
+    "unlockedAt": null
+  },
+  {
+    "id": "story_hunter",
+    "title": "Caçador de histórias",
+    "description": "Colete narrativas de pontos turísticos em diferentes rotas.",
+    "icon": "menu_book",
+    "condition": "visitedPointIds.length >= 3",
+    "isUnlocked": false,
+    "unlockedAt": null
+  },
+  {
+    "id": "cultural_tourist",
+    "title": "Turista cultural",
+    "description": "Visite pontos de categoria cultural.",
+    "icon": "museum",
+    "condition": "visitedPointIds.length >= 2",
+    "isUnlocked": false,
+    "unlockedAt": null
+  }
+]

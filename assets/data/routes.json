@@ -1,0 +1,47 @@
+[
+  {
+    "id": "route_historico",
+    "title": "Rio Histórico",
+    "subtitle": "Arquitetura, memória e cultura no coração da cidade",
+    "description": "Uma rota imersiva pelos marcos históricos mais emblemáticos do Rio, com narrativa, progresso e pontos visitáveis.",
+    "category": "História",
+    "estimatedTime": "2h 30min",
+    "distance": "4,8 km",
+    "difficulty": "Fácil",
+    "coverImage": "assets/images/routes/rio_historico.jpg",
+    "pointIds": ["cristo", "theatro", "arcos"],
+    "rewardIds": ["first_visit", "route_complete"],
+    "theme": "historia",
+    "isFeatured": true
+  },
+  {
+    "id": "route_natureza",
+    "title": "Natureza Carioca",
+    "subtitle": "Trilhas urbanas, vistas e jardins exuberantes",
+    "description": "Uma experiência contemplativa entre montanhas, jardins e mirantes que conectam cidade e natureza.",
+    "category": "Natureza",
+    "estimatedTime": "3h",
+    "distance": "6,1 km",
+    "difficulty": "Moderada",
+    "coverImage": "assets/images/routes/natureza_carioca.jpg",
+    "pointIds": ["pao", "jardim", "parque"],
+    "rewardIds": ["explorer_beginner"],
+    "theme": "natureza",
+    "isFeatured": false
+  },
+  {
+    "id": "route_cultural",
+    "title": "Centro Cultural",
+    "subtitle": "Museus, bibliotecas e centros de conhecimento",
+    "description": "Uma rota para descobrir espaços culturais com história, arquitetura marcante e experiências editoriais.",
+    "category": "Cultura",
+    "estimatedTime": "2h 10min",
+    "distance": "3,9 km",
+    "difficulty": "Fácil",
+    "coverImage": "assets/images/routes/centro_cultural.jpg",
+    "pointIds": ["museu", "ccbb", "biblioteca"],
+    "rewardIds": ["master_city"],
+    "theme": "cultura",
+    "isFeatured": false
+  }
+]
