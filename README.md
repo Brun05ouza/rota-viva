@@ -67,3 +67,76 @@ Adicione uma licença se quiser tornar este projeto público e aceitar contribui
 ---
 
 Se quiser, eu posso também adicionar badges, screenshots (placeholders adicionados) e um `CONTRIBUTING.md` com orientações de contribuição.
+
+---
+
+# Perguntas essenciais
+
+Use esta lista para orientar decisões de produto, design e implementação. Responda ou comente cada item durante as próximas reuniões.
+
+## Visão e público
+- Qual é o público-alvo primário (turistas estrangeiros, moradores, escolas, visitantes autônomos)?
+- Qual é o objetivo principal do app em 3 frases? (ex: guiar, educar, entreter e fidelizar visitantes)
+- O app deve funcionar offline? Quais dados mínimos precisam estar disponíveis sem conexão?
+
+## Rotas e pontos
+- Que tipo de rotas teremos: histórico, cultural, gastronômico, natureza, personalizadas?
+- Como definimos a granularidade de pontos (por rota: 3–10, por cidade: X)?
+- Precisamos suportar múltiplas línguas no conteúdo das rotas/pontos? Quais?
+
+## Conteúdo multimídia
+- Quais formatos de mídia serão usados para cada ponto? (texto, imagem, galeria, áudio, vídeo)
+- Haverá narração profissional para áudio-guia ou TTS (text-to-speech) é aceitável inicialmente?
+- Qual é o tamanho máximo aceitável para áudios offline por rota?
+
+## Check-in por localização
+- Qual raio de geofencing para check-in é apropriado (metros)?
+- Como lidar com falsos positivos/negativos de GPS (p.ex. detecção por proximidade + confirmação pelo usuário)?
+
+## Mapas e localização
+- Usaremos Google Maps, Mapbox ou outro? Existe chave/API já disponível?
+- Queremos rota em tempo real (direções) ou apenas marcador/visualização?
+
+## Experiência do usuário (UX)
+- Precisa de acessibilidade (legendas, contraste, leitura por voz)?
+- Quais notificações contextuais são aceitáveis (check-in, conquistas, dicas ao chegar ao ponto)?
+
+## Gamificação e progresso
+- Como o usuário ganha pontos/conquistas? Por check-in, completar rota, tempo de áudio escutado?
+- Como exibiremos progresso: percentual da rota, medalhas, ranking público?
+
+## Autenticação e privacidade
+- O app requer login? Permite uso anônimo com opcional cadastro?
+- Quais dados pessoais serão coletados e como serão armazenados (consentimento, política de privacidade)?
+
+## Persistência e sincronização
+- Deve sincronizar progresso entre dispositivos/contas (necessita backend)?
+- Que dados persistimos localmente com prioridade (progresso, favoritos, downloads offline)?
+
+## Métricas e observabilidade
+- Quais métricas mínimas queremos coletar (instalações, rotas iniciadas, check-ins, tempo de áudio)?
+- Aceita integração com ferramentas como Firebase Analytics ou similar?
+
+## Performance e limites
+- Qual é o alvo mínimo de performance (tempo de abertura, memória, tamanho do APK/APK)?
+- Há limitações de rede para público-alvo (p.ex. redes móveis lentas)?
+
+## Testes e qualidade
+- Quais cenários devemos automatizar (integração de áudio, simulação de localização, check-in flow)?
+- Existe um plano de testes manuais para aceitar rotas e pontos com conteúdo multimídia?
+
+## Lançamento e distribuição
+- Pretendemos lançar nas lojas (Google Play / App Store) já na próxima versão? Há contas de developer prontas?
+- Precisamos de builds separados para homologação/produção? Políticas de CI/CD?
+
+## Licença e contribuição
+- Qual licença de código devemos aplicar (MIT, Apache, proprietária)?
+- Como aceitaremos contribuições (pull requests, issues, guidelines)?
+
+## Prioridades imediatas (decisões rápidas)
+- Qual a prioridade: áudio-guia offline, check-in por GPS, ou rotas multilíngue?
+- Podemos começar com um conjunto piloto de 1–3 rotas com mídia completa para validação?
+
+---
+
+Responda as perguntas mais importantes e eu adapto o backlog, README e issues no repositório (`README.md`) conforme suas respostas. Quer que eu adicione essas perguntas também como issues no GitHub? 
