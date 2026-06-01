@@ -139,4 +139,54 @@ Use esta lista para orientar decisões de produto, design e implementação. Res
 
 ---
 
-Responda as perguntas mais importantes e eu adapto o backlog, README e issues no repositório (`README.md`) conforme suas respostas. Quer que eu adicione essas perguntas também como issues no GitHub? 
+Descrição
+
+Rota Viva é um protótipo criado para orientar visitantes por rotas turísticas com pontos de interesse enriquecidos por texto, imagens e áudio-guia. O projeto foi desenvolvido como um scaffold funcional para validação de produto e testes de usabilidade. Ele inclui telas principais como Splash, Onboarding, navegação por abas, listagem de rotas, detalhes de rota e ponto, um placeholder para mapa e integrações iniciais para localização e áudio.
+
+Como foi desenvolvido
+
+- Linguagem e framework: Flutter e Dart.
+- Gerenciamento de estado: Riverpod (flutter_riverpod).
+- Persistência local: SharedPreferences (primeira versão para progresso e flags simples).
+- Localização: Geolocator (para obter posição e calcular distâncias para check-in).
+- Áudio: integração básica com `just_audio` para preparar o áudio-guia.
+- Arquitetura: organização por features em `lib/features/` (cada feature tem modelos, repositório, providers e apresentação).
+- Dados de exemplo: arquivos JSON em `assets/data/` (`routes.json`, `points.json`, `achievements.json`).
+
+Como rodar
+
+Pré-requisitos:
+- Flutter SDK instalado
+- Dispositivo/emulador configurado
+
+Comandos:
+
+```bash
+flutter pub get
+flutter run
+```
+
+Executar testes:
+
+```bash
+flutter test
+```
+
+Observações técnicas
+
+- As pastas `assets/images/` e `assets/audio/` existem como placeholders — adicione arquivos reais conforme necessário e, se necessário, atualize `pubspec.yaml`.
+- O mapa está implementado como placeholder; para ativar mapas reais, configure a API (Google Maps/Mapbox) e adicione o pacote correspondente.
+- A persistência atual usa `SharedPreferences`; para dados mais complexos, considere migrar para `Hive` ou outro banco local.
+
+Estrutura principal
+
+- `lib/core/`: tema, utilitários e widgets compartilhados.
+- `lib/features/`: código por feature (routes, points, map, achievements, profile, etc.).
+
+Contribuição
+
+Pull requests são bem-vindos. Inclua descrição clara das mudanças, como testar e qualquer dependência nova.
+
+Licença
+
+Adicione uma licença se desejar abrir o repositório publicamente para contribuições.
