@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:collection/collection.dart';
 
 import '../../../app/routes.dart';
 import '../../../core/widgets/empty_state.dart';
@@ -23,7 +24,33 @@ class RouteDetailsScreen extends ConsumerWidget {
     return Scaffold(
       body: routes.when(
         data: (items) {
-          final route = items.firstWhere((item) => item.id == routeId);
+          final route = items.firstWhereOrNull((item) => item.id == routeId);
+          if (route == null) {
+            return const EmptyState(
+              title: 'Rota não encontrada',
+              subtitle: 'Essa rota não existe nos dados locais.',
+            );
+          }
+
+          final visitedPointIds =
+              progress.valueOrNull?.visitedPointIds.toSet() ?? {};
+          final completedRouteIds =
+              progress.valueOrNull?.completedRouteIds.toSet() ?? {};
+          final routePointIds = route.pointIds.toSet();
+          final visitedCount = routePointIds
+              .intersection(visitedPointIds)
+              .length;
+          final routeProgress = routePointIds.isEmpty
+              ? 0.0
+              : visitedCount / routePointIds.length;
+          final isActiveRoute = progress.valueOrNull?.activeRouteId == route.id;
+          final isCompleted = completedRouteIds.contains(route.id);
+          final canComplete =
+              isActiveRoute &&
+              !isCompleted &&
+              routePointIds.isNotEmpty &&
+              visitedCount == routePointIds.length;
+
           return CustomScrollView(
             slivers: [
               SliverAppBar(
@@ -31,7 +58,11 @@ class RouteDetailsScreen extends ConsumerWidget {
                 pinned: true,
                 flexibleSpace: FlexibleSpaceBar(
                   title: Text(route.title),
-                  background: Image.asset(route.coverImage, fit: BoxFit.cover, errorBuilder: (_, _, _) => Container(color: Colors.white12)),
+                  background: Image.asset(
+                    route.coverImage,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, _, _) => Container(color: Colors.white12),
+                  ),
                 ),
               ),
               SliverToBoxAdapter(
@@ -40,7 +71,10 @@ class RouteDetailsScreen extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(route.subtitle, style: Theme.of(context).textTheme.titleLarge),
+                      Text(
+                        route.subtitle,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
                       const SizedBox(height: 8),
                       Text(route.description),
                       const SizedBox(height: 16),
@@ -55,24 +89,57 @@ class RouteDetailsScreen extends ConsumerWidget {
                         ],
                       ),
                       const SizedBox(height: 24),
-                      LinearProgressIndicator(value: progress.valueOrNull?.activeRouteId == routeId ? 0.6 : 0.0),
+                      LinearProgressIndicator(
+                        value: isCompleted ? 1 : routeProgress,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        isCompleted
+                            ? 'Rota concluída'
+                            : '$visitedCount de ${routePointIds.length} pontos visitados',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
                       const SizedBox(height: 24),
-                      Text('Pontos da rota', style: Theme.of(context).textTheme.titleLarge),
+                      Text(
+                        'Pontos da rota',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
                       const SizedBox(height: 12),
                       points.when(
                         data: (pointItems) => RouteTimeline(
                           points: pointItems,
-                          visitedPointIds: progress.valueOrNull?.visitedPointIds.toSet() ?? {},
-                          onPointTap: (point) => Navigator.of(context).pushNamed(AppRoutes.pointDetails, arguments: point.id),
+                          visitedPointIds: visitedPointIds,
+                          onPointTap: (point) =>
+                              Navigator.of(context).pushNamed(
+                                AppRoutes.pointDetails,
+                                arguments: point.id,
+                              ),
                         ),
                         loading: () => const LoadingState(),
-                        error: (_, _) => const EmptyState(title: 'Falha ao carregar pontos', subtitle: 'Tente novamente.'),
+                        error: (_, _) => const EmptyState(
+                          title: 'Falha ao carregar pontos',
+                          subtitle: 'Tente novamente.',
+                        ),
                       ),
                       const SizedBox(height: 8),
                       FilledButton(
-                        onPressed: () => ref.read(progressProvider.notifier).startRoute(route.id),
-                        child: Text(progress.valueOrNull?.activeRouteId == route.id ? 'Continuar rota' : 'Iniciar rota'),
+                        onPressed: () => ref
+                            .read(progressProvider.notifier)
+                            .startRoute(route.id),
+                        child: Text(
+                          isActiveRoute ? 'Continuar rota' : 'Iniciar rota',
+                        ),
                       ),
+                      if (canComplete) ...[
+                        const SizedBox(height: 12),
+                        OutlinedButton.icon(
+                          onPressed: () => ref
+                              .read(progressProvider.notifier)
+                              .completeRoute(route.id),
+                          icon: const Icon(Icons.verified),
+                          label: const Text('Concluir rota'),
+                        ),
+                      ],
                     ],
                   ),
                 ),
@@ -81,7 +148,10 @@ class RouteDetailsScreen extends ConsumerWidget {
           );
         },
         loading: () => const LoadingState(),
-        error: (_, _) => const EmptyState(title: 'Erro ao abrir rota', subtitle: 'Verifique os dados da rota.'),
+        error: (_, _) => const EmptyState(
+          title: 'Erro ao abrir rota',
+          subtitle: 'Verifique os dados da rota.',
+        ),
       ),
     );
   }

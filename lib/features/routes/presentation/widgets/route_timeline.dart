@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 import '../../../points/data/models/tour_point_model.dart';
 
 class RouteTimeline extends StatelessWidget {
-  const RouteTimeline({super.key, required this.points, required this.visitedPointIds, required this.onPointTap});
+  const RouteTimeline({
+    super.key,
+    required this.points,
+    required this.visitedPointIds,
+    required this.onPointTap,
+  });
 
   final List<TourPointModel> points;
   final Set<String> visitedPointIds;
@@ -24,7 +29,9 @@ class RouteTimeline extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 15,
-                    backgroundColor: visited ? Theme.of(context).colorScheme.primary : Colors.white12,
+                    backgroundColor: visited
+                        ? Theme.of(context).colorScheme.primary
+                        : Colors.white12,
                     child: Icon(visited ? Icons.check : Icons.place, size: 16),
                   ),
                   if (index != points.length - 1)
@@ -35,15 +42,24 @@ class RouteTimeline extends StatelessWidget {
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
+                  decoration: BoxDecoration(
                     color: Colors.white10,
                     borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: visited ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.35) : Colors.white10),
+                    border: Border.all(
+                      color: visited
+                          ? Theme.of(
+                              context,
+                            ).colorScheme.primary.withValues(alpha: 0.35)
+                          : Colors.white10,
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(point.title, style: Theme.of(context).textTheme.titleMedium),
+                      Text(
+                        point.title,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
                       const SizedBox(height: 4),
                       Text(point.shortDescription),
                       const SizedBox(height: 10),

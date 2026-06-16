@@ -4,7 +4,11 @@ import '../../../../core/theme/app_radius.dart';
 import '../../../routes/data/models/tour_route_model.dart';
 
 class FeaturedRouteCard extends StatelessWidget {
-  const FeaturedRouteCard({super.key, required this.route, required this.onTap});
+  const FeaturedRouteCard({
+    super.key,
+    required this.route,
+    required this.onTap,
+  });
 
   final TourRouteModel route;
   final VoidCallback onTap;
@@ -17,7 +21,9 @@ class FeaturedRouteCard extends StatelessWidget {
         height: 260,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppRadius.xl),
-          gradient: const LinearGradient(colors: [Color(0xFF1E293B), Color(0xFF0F172A)]),
+          gradient: const LinearGradient(
+            colors: [Color(0xFF1E293B), Color(0xFF0F172A)],
+          ),
         ),
         child: Stack(
           children: [
@@ -51,11 +57,21 @@ class FeaturedRouteCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(route.category, style: Theme.of(context).textTheme.labelLarge),
+                    Text(
+                      route.category,
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
                     const SizedBox(height: 8),
-                    Text(route.title, style: Theme.of(context).textTheme.headlineSmall),
+                    Text(
+                      route.title,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
                     const SizedBox(height: 6),
-                    Text(route.subtitle, maxLines: 2, overflow: TextOverflow.ellipsis),
+                    Text(
+                      route.subtitle,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ],
                 ),
               ),

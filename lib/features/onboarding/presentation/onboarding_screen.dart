@@ -17,9 +17,18 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   var index = 0;
 
   final pages = const [
-    ('Descubra rotas incríveis', 'Explore experiências turísticas criadas para transformar sua caminhada em uma jornada.'),
-    ('Visite pontos e desbloqueie histórias', 'Chegue perto dos locais, faça check-in e descubra curiosidades, áudios e conteúdos exclusivos.'),
-    ('Complete experiências', 'Conclua rotas, acompanhe seu progresso e desbloqueie conquistas durante sua exploração.'),
+    (
+      'Descubra rotas incríveis',
+      'Explore experiências turísticas criadas para transformar sua caminhada em uma jornada.',
+    ),
+    (
+      'Visite pontos e desbloqueie histórias',
+      'Chegue perto dos locais, faça check-in e descubra curiosidades, áudios e conteúdos exclusivos.',
+    ),
+    (
+      'Complete experiências',
+      'Conclua rotas, acompanhe seu progresso e desbloqueie conquistas durante sua exploração.',
+    ),
   ];
 
   Future<void> _finish() async {
@@ -48,11 +57,20 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Rota Viva', style: Theme.of(context).textTheme.labelLarge),
+                        Text(
+                          'Rota Viva',
+                          style: Theme.of(context).textTheme.labelLarge,
+                        ),
                         const SizedBox(height: 12),
-                        Text(title, style: Theme.of(context).textTheme.headlineMedium),
+                        Text(
+                          title,
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
                         const SizedBox(height: 12),
-                        Text(subtitle, style: Theme.of(context).textTheme.bodyLarge),
+                        Text(
+                          subtitle,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
                       ],
                     );
                   },
@@ -68,7 +86,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     width: index == i ? 22 : 8,
                     height: 8,
                     decoration: BoxDecoration(
-                      color: index == i ? Theme.of(context).colorScheme.primary : Colors.white24,
+                      color: index == i
+                          ? Theme.of(context).colorScheme.primary
+                          : Colors.white24,
                       borderRadius: BorderRadius.circular(99),
                     ),
                   ),
@@ -76,12 +96,17 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               ),
               const SizedBox(height: 24),
               PrimaryButton(
-                label: index == pages.length - 1 ? 'Começar exploração' : 'Continuar',
+                label: index == pages.length - 1
+                    ? 'Começar exploração'
+                    : 'Continuar',
                 onPressed: () {
                   if (index == pages.length - 1) {
                     _finish();
                   } else {
-                    controller.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
+                    controller.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeOut,
+                    );
                   }
                 },
               ),

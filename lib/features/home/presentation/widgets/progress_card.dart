@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class ProgressCard extends StatelessWidget {
-  const ProgressCard({super.key, required this.title, required this.subtitle, required this.progress});
+  const ProgressCard({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.progress,
+  });
 
   final String title;
   final String subtitle;

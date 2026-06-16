@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:collection/collection.dart';
 
 import '../../../app/routes.dart';
 import '../../../core/widgets/empty_state.dart';
@@ -27,34 +28,58 @@ class HomeScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Explore sua próxima rota', style: Theme.of(context).textTheme.headlineMedium),
+          Text(_greeting(), style: Theme.of(context).textTheme.labelLarge),
           const SizedBox(height: 8),
-          Text('Descubra lugares, histórias e experiências próximas de você.', style: Theme.of(context).textTheme.bodyMedium),
+          Text(
+            'Explore sua próxima rota',
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Descubra lugares, histórias e experiências próximas de você.',
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
           const SizedBox(height: 20),
           routes.when(
             data: (items) {
-              final featured = items.firstWhere((route) => route.isFeatured, orElse: () => items.first);
+              if (items.isEmpty) {
+                return const EmptyState(
+                  title: 'Sem rotas cadastradas',
+                  subtitle: 'Adicione rotas aos dados locais.',
+                );
+              }
+              final featured = items.firstWhere(
+                (route) => route.isFeatured,
+                orElse: () => items.first,
+              );
               return FeaturedRouteCard(
                 route: featured,
-                onTap: () => Navigator.of(context).pushNamed(AppRoutes.routeDetails, arguments: featured.id),
+                onTap: () => Navigator.of(
+                  context,
+                ).pushNamed(AppRoutes.routeDetails, arguments: featured.id),
               );
             },
             loading: () => const LoadingState(),
-            error: (_, _) => const EmptyState(title: 'Falha ao carregar rotas', subtitle: 'Tente novamente em instantes.'),
+            error: (_, _) => const EmptyState(
+              title: 'Falha ao carregar rotas',
+              subtitle: 'Tente novamente em instantes.',
+            ),
           ),
           const SizedBox(height: 24),
           const SectionHeader(title: 'Rotas recomendadas'),
           const SizedBox(height: 12),
           routes.when(
             data: (items) => SizedBox(
-              height: 230,
+              height: 360,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   final route = items[index];
                   return RouteCard(
                     route: route,
-                    onTap: () => Navigator.of(context).pushNamed(AppRoutes.routeDetails, arguments: route.id),
+                    onTap: () => Navigator.of(
+                      context,
+                    ).pushNamed(AppRoutes.routeDetails, arguments: route.id),
                   );
                 },
                 separatorBuilder: (_, _) => const SizedBox(width: 12),
@@ -62,17 +87,33 @@ class HomeScreen extends ConsumerWidget {
               ),
             ),
             loading: () => const LoadingState(),
-            error: (_, _) => const EmptyState(title: 'Sem rotas', subtitle: 'Nenhuma rota disponível agora.'),
+            error: (_, _) => const EmptyState(
+              title: 'Sem rotas',
+              subtitle: 'Nenhuma rota disponível agora.',
+            ),
           ),
           const SizedBox(height: 24),
           const SectionHeader(title: 'Pontos próximos'),
           const SizedBox(height: 12),
           points.when(
             data: (items) => Column(
-              children: items.take(4).map((point) => PointCard(point: point, onTap: () => Navigator.of(context).pushNamed(AppRoutes.pointDetails, arguments: point.id))).toList(),
+              children: items
+                  .take(4)
+                  .map(
+                    (point) => PointCard(
+                      point: point,
+                      onTap: () => Navigator.of(
+                        context,
+                      ).pushNamed(AppRoutes.pointDetails, arguments: point.id),
+                    ),
+                  )
+                  .toList(),
             ),
             loading: () => const LoadingState(),
-            error: (_, _) => const EmptyState(title: 'Sem pontos', subtitle: 'Não foi possível carregar os pontos.'),
+            error: (_, _) => const EmptyState(
+              title: 'Sem pontos',
+              subtitle: 'Não foi possível carregar os pontos.',
+            ),
           ),
           const SizedBox(height: 24),
           progress.when(
@@ -80,10 +121,23 @@ class HomeScreen extends ConsumerWidget {
               if (value.activeRouteId == null) {
                 return const SizedBox.shrink();
               }
+              final activeRoute = routes.valueOrNull?.firstWhereOrNull(
+                (route) => route.id == value.activeRouteId,
+              );
+              final routePointIds =
+                  activeRoute?.pointIds.toSet() ?? const <String>{};
+              final visitedOnRoute = routePointIds
+                  .intersection(value.visitedPointIds.toSet())
+                  .length;
+              final currentProgress = routePointIds.isEmpty
+                  ? 0.0
+                  : visitedOnRoute / routePointIds.length;
               return ProgressCard(
                 title: 'Continue explorando',
-                subtitle: 'Você tem uma rota ativa salva localmente.',
-                progress: value.visitedPointIds.isEmpty ? 0 : 0.5,
+                subtitle: activeRoute == null
+                    ? 'Você tem uma rota ativa salva localmente.'
+                    : '$visitedOnRoute de ${routePointIds.length} pontos visitados em ${activeRoute.title}.',
+                progress: currentProgress,
               );
             },
             loading: () => const SizedBox.shrink(),
@@ -91,11 +145,20 @@ class HomeScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 24),
           FilledButton(
-            onPressed: () => Navigator.of(context).pushNamed(AppRoutes.routeDetails, arguments: 'route_historico'),
+            onPressed: () => Navigator.of(
+              context,
+            ).pushNamed(AppRoutes.routeDetails, arguments: 'route_historico'),
             child: const Text('Explorar agora'),
           ),
         ],
       ),
     );
+  }
+
+  String _greeting() {
+    final hour = DateTime.now().hour;
+    if (hour < 12) return 'Bom dia, viajante';
+    if (hour < 18) return 'Boa tarde, viajante';
+    return 'Boa noite, viajante';
   }
 }

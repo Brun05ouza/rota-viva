@@ -8,7 +8,9 @@ class TagChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = selected ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.surfaceContainerHighest;
+    final color = selected
+        ? Theme.of(context).colorScheme.primary
+        : Theme.of(context).colorScheme.surfaceContainerHighest;
     return Chip(
       label: Text(label),
       backgroundColor: color,

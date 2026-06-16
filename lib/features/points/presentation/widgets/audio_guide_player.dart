@@ -13,7 +13,7 @@ class AudioGuidePlayer extends StatefulWidget {
 class _AudioGuidePlayerState extends State<AudioGuidePlayer> {
   final player = AudioPlayer();
   var loading = true;
-  var playing = false;
+  String? loadError;
 
   @override
   void initState() {
@@ -24,6 +24,8 @@ class _AudioGuidePlayerState extends State<AudioGuidePlayer> {
   Future<void> _load() async {
     try {
       await player.setAsset(widget.audioAsset);
+    } catch (_) {
+      loadError = 'Não foi possível carregar este áudio-guia.';
     } finally {
       if (mounted) {
         setState(() => loading = false);
@@ -46,6 +48,21 @@ class _AudioGuidePlayerState extends State<AudioGuidePlayer> {
       );
     }
 
+    if (loadError != null) {
+      return Card(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              const Icon(Icons.volume_off_outlined),
+              const SizedBox(width: 12),
+              Expanded(child: Text(loadError!)),
+            ],
+          ),
+        ),
+      );
+    }
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -53,17 +70,24 @@ class _AudioGuidePlayerState extends State<AudioGuidePlayer> {
           children: [
             Row(
               children: [
-                IconButton(
-                  onPressed: () async {
-                    if (playing) {
-                      await player.pause();
-                    } else {
-                      await player.play();
-                    }
-                    setState(() => playing = !playing);
+                StreamBuilder<PlayerState>(
+                  stream: player.playerStateStream,
+                  builder: (context, snapshot) {
+                    final state = snapshot.data;
+                    final playing = state?.playing ?? false;
+                    final completed =
+                        state?.processingState == ProcessingState.completed;
+
+                    return IconButton(
+                      onPressed: _togglePlayback,
+                      icon: Icon(
+                        playing && !completed
+                            ? Icons.pause_circle
+                            : Icons.play_circle,
+                      ),
+                      iconSize: 38,
+                    );
                   },
-                  icon: Icon(playing ? Icons.pause_circle : Icons.play_circle),
-                  iconSize: 38,
                 ),
                 const SizedBox(width: 12),
                 const Expanded(child: Text('Áudio guia')),
@@ -77,13 +101,19 @@ class _AudioGuidePlayerState extends State<AudioGuidePlayer> {
                   stream: player.durationStream,
                   builder: (context, durationSnapshot) {
                     final duration = durationSnapshot.data ?? Duration.zero;
-                    final max = duration.inMilliseconds == 0 ? 1.0 : duration.inMilliseconds.toDouble();
+                    final max = duration.inMilliseconds == 0
+                        ? 1.0
+                        : duration.inMilliseconds.toDouble();
                     return Column(
                       children: [
                         Slider(
-                          value: position.inMilliseconds.clamp(0, max).toDouble(),
+                          value: position.inMilliseconds
+                              .clamp(0, max)
+                              .toDouble(),
                           max: max,
-                          onChanged: (value) => player.seek(Duration(milliseconds: value.toInt())),
+                          onChanged: (value) => player.seek(
+                            Duration(milliseconds: value.toInt()),
+                          ),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -108,5 +138,17 @@ class _AudioGuidePlayerState extends State<AudioGuidePlayer> {
     final minutes = duration.inMinutes.remainder(60).toString().padLeft(2, '0');
     final seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
     return '$minutes:$seconds';
+  }
+
+  Future<void> _togglePlayback() async {
+    if (player.processingState == ProcessingState.completed) {
+      await player.seek(Duration.zero);
+    }
+
+    if (player.playing) {
+      await player.pause();
+    } else {
+      await player.play();
+    }
   }
 }

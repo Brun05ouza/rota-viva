@@ -21,9 +21,18 @@ class _RoutesScreenState extends ConsumerState<RoutesScreen> {
   @override
   Widget build(BuildContext context) {
     final routes = ref.watch(routesProvider);
-    const categories = ['Todas', 'História', 'Natureza', 'Cultura', 'Gastronomia', 'Religioso', 'Aventura'];
+    const categories = [
+      'Todas',
+      'História',
+      'Natureza',
+      'Cultura',
+      'Gastronomia',
+      'Religioso',
+      'Aventura',
+    ];
 
     return Padding(
+      key: const ValueKey('routes-screen'),
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,7 +40,10 @@ class _RoutesScreenState extends ConsumerState<RoutesScreen> {
           Text('Rotas', style: Theme.of(context).textTheme.headlineMedium),
           const SizedBox(height: 12),
           TextField(
-            decoration: const InputDecoration(prefixIcon: Icon(Icons.search), hintText: 'Buscar rota'),
+            decoration: const InputDecoration(
+              prefixIcon: Icon(Icons.search),
+              hintText: 'Buscar rota',
+            ),
             onChanged: (value) => setState(() => query = value),
           ),
           const SizedBox(height: 12),
@@ -56,13 +68,19 @@ class _RoutesScreenState extends ConsumerState<RoutesScreen> {
             child: routes.when(
               data: (items) {
                 final filtered = items.where((route) {
-                  final matchesQuery = query.isEmpty || route.title.toLowerCase().contains(query.toLowerCase());
-                  final matchesCategory = category == 'Todas' || route.category == category;
+                  final matchesQuery =
+                      query.isEmpty ||
+                      route.title.toLowerCase().contains(query.toLowerCase());
+                  final matchesCategory =
+                      category == 'Todas' || route.category == category;
                   return matchesQuery && matchesCategory;
                 }).toList();
 
                 if (filtered.isEmpty) {
-                  return const EmptyState(title: 'Nenhuma rota encontrada', subtitle: 'Tente outro termo ou categoria.');
+                  return const EmptyState(
+                    title: 'Nenhuma rota encontrada',
+                    subtitle: 'Tente outro termo ou categoria.',
+                  );
                 }
 
                 return ListView.separated(
@@ -70,7 +88,9 @@ class _RoutesScreenState extends ConsumerState<RoutesScreen> {
                     final route = filtered[index];
                     return RouteCard(
                       route: route,
-                      onTap: () => Navigator.of(context).pushNamed(AppRoutes.routeDetails, arguments: route.id),
+                      onTap: () => Navigator.of(
+                        context,
+                      ).pushNamed(AppRoutes.routeDetails, arguments: route.id),
                     );
                   },
                   separatorBuilder: (_, _) => const SizedBox(height: 14),
@@ -78,7 +98,10 @@ class _RoutesScreenState extends ConsumerState<RoutesScreen> {
                 );
               },
               loading: () => const LoadingState(),
-              error: (_, _) => const EmptyState(title: 'Erro ao carregar rotas', subtitle: 'Verifique os dados locais.'),
+              error: (_, _) => const EmptyState(
+                title: 'Erro ao carregar rotas',
+                subtitle: 'Verifique os dados locais.',
+              ),
             ),
           ),
         ],

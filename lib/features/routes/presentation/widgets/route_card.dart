@@ -24,9 +24,11 @@ class RouteCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(AppRadius.lg)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(AppRadius.lg),
+              ),
               child: AspectRatio(
-                aspectRatio: 1.6,
+                aspectRatio: 2.05,
                 child: Image.asset(
                   route.coverImage,
                   fit: BoxFit.cover,
@@ -39,16 +41,28 @@ class RouteCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(14),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(route.category, style: Theme.of(context).textTheme.labelMedium),
+                  Text(
+                    route.category,
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
                   const SizedBox(height: 6),
-                  Text(route.title, style: Theme.of(context).textTheme.titleLarge),
+                  Text(
+                    route.title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
                   const SizedBox(height: 6),
-                  Text(route.subtitle, maxLines: 2, overflow: TextOverflow.ellipsis),
-                  const SizedBox(height: 12),
+                  Text(
+                    route.subtitle,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 10),
                   Wrap(
                     spacing: 8,
                     runSpacing: 8,
@@ -84,7 +98,11 @@ class _Meta extends StatelessWidget {
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: [Icon(icon, size: 14), const SizedBox(width: 4), Text(label)],
+        children: [
+          Icon(icon, size: 13),
+          const SizedBox(width: 4),
+          Text(label, style: Theme.of(context).textTheme.labelSmall),
+        ],
       ),
     );
   }

@@ -14,19 +14,27 @@ class AppRoutes {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case splash:
-        return MaterialPageRoute(builder: (_) => const SplashScreen(), settings: settings);
+        return MaterialPageRoute(
+          builder: (_) => const SplashScreen(),
+          settings: settings,
+        );
       case routeDetails:
         return MaterialPageRoute(
-          builder: (_) => RouteDetailsScreen(routeId: settings.arguments! as String),
+          builder: (_) =>
+              RouteDetailsScreen(routeId: settings.arguments! as String),
           settings: settings,
         );
       case pointDetails:
         return MaterialPageRoute(
-          builder: (_) => PointDetailsScreen(pointId: settings.arguments! as String),
+          builder: (_) =>
+              PointDetailsScreen(pointId: settings.arguments! as String),
           settings: settings,
         );
       default:
-        return MaterialPageRoute(builder: (_) => const SplashScreen(), settings: settings);
+        return MaterialPageRoute(
+          builder: (_) => const SplashScreen(),
+          settings: settings,
+        );
     }
   }
 }

@@ -14,9 +14,17 @@ class EmptyState extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.travel_explore_outlined, size: 56, color: Theme.of(context).colorScheme.primary),
+            Icon(
+              Icons.travel_explore_outlined,
+              size: 56,
+              color: Theme.of(context).colorScheme.primary,
+            ),
             const SizedBox(height: 16),
-            Text(title, textAlign: TextAlign.center, style: Theme.of(context).textTheme.titleLarge),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
             const SizedBox(height: 8),
             Text(subtitle, textAlign: TextAlign.center),
           ],
