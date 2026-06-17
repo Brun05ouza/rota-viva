@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theme/app_colors.dart';
+
 class InfoBadge extends StatelessWidget {
   const InfoBadge({super.key, required this.label, required this.icon});
 
@@ -8,6 +10,8 @@ class InfoBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const contentColor = AppColors.textPrimary;
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
@@ -16,7 +20,16 @@ class InfoBadge extends StatelessWidget {
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: [Icon(icon, size: 16), const SizedBox(width: 6), Text(label)],
+        children: [
+          Icon(icon, size: 16, color: contentColor),
+          const SizedBox(width: 6),
+          Text(
+            label,
+            style: Theme.of(
+              context,
+            ).textTheme.labelMedium?.copyWith(color: contentColor),
+          ),
+        ],
       ),
     );
   }

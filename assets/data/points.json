@@ -9,7 +9,7 @@
     "longitude": -43.210487,
     "category": "História",
     "tags": ["ícone", "vista", "patrimônio"],
-    "imageAsset": "assets/images/points/cristo.jpg",
+    "imageAsset": "assets/images/points/cristo.png",
     "audioAsset": null,
     "checkInRadiusMeters": 250
   },
@@ -23,7 +23,7 @@
     "longitude": -43.176365,
     "category": "História",
     "tags": ["arte", "arquitetura", "cultura"],
-    "imageAsset": "assets/images/points/theatro.jpg",
+    "imageAsset": "assets/images/points/theatro.png",
     "audioAsset": null,
     "checkInRadiusMeters": 180
   },
@@ -37,7 +37,7 @@
     "longitude": -43.179976,
     "category": "História",
     "tags": ["história", "noite", "cartão-postal"],
-    "imageAsset": "assets/images/points/arcos.jpg",
+    "imageAsset": "assets/images/points/arcos.png",
     "audioAsset": null,
     "checkInRadiusMeters": 140
   },
@@ -51,7 +51,7 @@
     "longitude": -43.157783,
     "category": "Natureza",
     "tags": ["mirante", "vistas", "bondinho"],
-    "imageAsset": "assets/images/points/pao.jpg",
+    "imageAsset": "assets/images/points/pao.png",
     "audioAsset": null,
     "checkInRadiusMeters": 220
   },
@@ -65,7 +65,7 @@
     "longitude": -43.223098,
     "category": "Natureza",
     "tags": ["verde", "história", "jardim"],
-    "imageAsset": "assets/images/points/jardim.jpg",
+    "imageAsset": "assets/images/points/jardim.png",
     "audioAsset": null,
     "checkInRadiusMeters": 180
   },
@@ -79,7 +79,7 @@
     "longitude": -43.210872,
     "category": "Natureza",
     "tags": ["arte", "parque", "fotografia"],
-    "imageAsset": "assets/images/points/parque.jpg",
+    "imageAsset": "assets/images/points/parque.png",
     "audioAsset": null,
     "checkInRadiusMeters": 170
   },
@@ -93,7 +93,7 @@
     "longitude": -43.180381,
     "category": "Cultura",
     "tags": ["futuro", "ciência", "arquitetura"],
-    "imageAsset": "assets/images/points/museu.jpg",
+    "imageAsset": "assets/images/points/museu.png",
     "audioAsset": null,
     "checkInRadiusMeters": 200
   },
@@ -107,7 +107,7 @@
     "longitude": -43.177255,
     "category": "Cultura",
     "tags": ["exposição", "centro", "arte"],
-    "imageAsset": "assets/images/points/ccbb.jpg",
+    "imageAsset": "assets/images/points/ccbb.png",
     "audioAsset": null,
     "checkInRadiusMeters": 150
   },
@@ -121,7 +121,7 @@
     "longitude": -43.173408,
     "category": "Cultura",
     "tags": ["livros", "patrimônio", "história"],
-    "imageAsset": "assets/images/points/biblioteca.jpg",
+    "imageAsset": "assets/images/points/biblioteca.png",
     "audioAsset": null,
     "checkInRadiusMeters": 150
   }

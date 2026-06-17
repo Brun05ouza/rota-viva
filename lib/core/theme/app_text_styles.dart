@@ -21,7 +21,16 @@ class AppTextStyles {
       ),
       bodyLarge: base.bodyLarge?.copyWith(color: AppColors.textPrimary),
       bodyMedium: base.bodyMedium?.copyWith(color: AppColors.textSecondary),
+      bodySmall: base.bodySmall?.copyWith(color: AppColors.textSecondary),
       labelLarge: base.labelLarge?.copyWith(
+        color: AppColors.textPrimary,
+        fontWeight: FontWeight.w600,
+      ),
+      labelMedium: base.labelMedium?.copyWith(
+        color: AppColors.textSecondary,
+        fontWeight: FontWeight.w600,
+      ),
+      labelSmall: base.labelSmall?.copyWith(
         color: AppColors.textPrimary,
         fontWeight: FontWeight.w600,
       ),
